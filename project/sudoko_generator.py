@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 """
 Initiate the cell object
@@ -7,7 +8,7 @@ class cell():
 
     def __init__(self, position):
         self.possibleAnswers = [1,2,3,4,5,6,7,8,9]
-        self.answer = None
+        self.answer = "X"
         self.position = position
         self.solved = False
 
@@ -63,8 +64,24 @@ def printSudoko(sudoko):
     
     sudoko = sudoko
 
+    printList = []
+
     for c in sudoko:
-        print(c.getAnswer())
+        printList.append(c.getAnswer())
+
+    splitList = np.array_split(printList, 9)
+
+    for l in splitList:
+        for i in range(3):
+            print(l[i] + " " + l[i+1] + " " + l[i+2], end = '')
+            if i < 3:
+                print(" | ", end = '')
+            
+            print()
+            print(21*"_")
+
+        
+
 
 """
 Generating a sudoko puzzle

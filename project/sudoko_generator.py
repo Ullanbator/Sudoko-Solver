@@ -71,6 +71,7 @@ def printSudoko(sudoko):
 
     splitList = np.array_split(printList, 9)
 
+    #Initialising a counter to know when to put in the horizontal bar
     j = 1
 
     for l in splitList:

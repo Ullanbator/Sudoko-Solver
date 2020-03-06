@@ -71,14 +71,20 @@ def printSudoko(sudoko):
 
     splitList = np.array_split(printList, 9)
 
+    j = 1
+
     for l in splitList:
         for i in range(3):
             print(l[i] + " " + l[i+1] + " " + l[i+2], end = '')
-            if i < 3:
+            if i < 2:
                 print(" | ", end = '')
-            
-            print()
-            print(21*"_")
+            else:
+                print()
+
+        if j == 3 or j == 6:
+            print(21*"-")
+
+        j += 1
 
         
 

@@ -21,6 +21,17 @@ class cell():
 
     def getAnswer(self):
         return self.answer
+    
+    def getPossibleAnswers(self):
+        return self.possibleAnswers
+
+    def setAnswer(self, answer):
+        self.answer = answer
+        return True
+
+    def setSolved(self, solved):
+        self.solved = solved
+        return True
 
     def checkSolved(self):
         if len(self.possibleAnswers) == 1:
@@ -76,7 +87,7 @@ def printSudoko(sudoko):
 
     for l in splitList:
         for i in range(3):
-            print(l[i] + " " + l[i+1] + " " + l[i+2], end = '')
+            print(str(l[3*i]) + " " + str(l[3*i+1]) + " " + str(l[3*i+2]), end = '')
             if i < 2:
                 print(" | ", end = '')
             else:
@@ -97,8 +108,6 @@ Generating a sudoko puzzle
 def generateSudoko():
     suduko = emptySudoko()
 
-    cells = list(range(81))
-
     for c in suduko:
         position = c.getPosition()
 
@@ -106,14 +115,25 @@ def generateSudoko():
         y = position[1]
         boxNum = position[2]
 
-        for x in suduko:
-            position = x.getPosition()
+        c.setAnswer(random.choice(c.getPossibleAnswers()))
 
-            if x == position[0] and x.checkSolved() == True:
-                c.removeAnswer(x.getAnswer())
-            if y == position[1] and x.checkSolved() == True:
-                c.removeAnswer(x.getAnswer())
-            if boxNum == position[2] and x.checkSolved() == True:
-                c.removeAnswer(x.getAnswer())
+        for cx in suduko:
+            position = cx.getPosition()
 
-printSudoko(emptySudoko())
+            if x == position[0] and cx.checkSolved() == True:
+                c.removeAnswer(cx.getAnswer())
+                c.setAnswer(random.choice(c.getPossibleAnswers()))
+            if y == position[1] and cx.checkSolved() == True:
+                c.removeAnswer(cx.getAnswer())
+                c.setAnswer(random.choice(c.getPossibleAnswers()))
+            if boxNum == position[2] and cx.checkSolved() == True:
+                c.removeAnswer(cx.getAnswer())
+                c.setAnswer(random.choice(c.getPossibleAnswers()))
+
+        c.setSolved(True)
+
+        printSudoko(suduko)
+    
+
+#printSudoko(emptySudoko())
+generateSudoko()

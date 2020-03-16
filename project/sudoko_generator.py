@@ -13,7 +13,7 @@ class cell():
         self.solved = False
 
     def removeAnswer(self, guess):
-        if self.solved is False:
+        if self.solved is False and guess in self.possibleAnswers:
             self.possibleAnswers.remove(guess)
 
     def getPosition(self):
@@ -36,7 +36,6 @@ class cell():
     def checkSolved(self):
         if len(self.possibleAnswers) == 1:
             self.solved = True
-        
         return self.solved
 
 def emptySudoko():
@@ -108,31 +107,41 @@ Generating a sudoko puzzle
 def generateSudoko():
     suduko = emptySudoko()
 
-    for c in suduko:
-        position = c.getPosition()
+    lowestNum = []
+
+    cells =  cells = [i for i in range(81)]
+
+    while len(cells) != 0:
+
+        for i in cells:
+            lowestNum.append(len(suduko[i].getPossibleAnswers()))wqq
+    
+        position = random.
 
         x = position[0]
         y = position[1]
         boxNum = position[2]
 
         c.setAnswer(random.choice(c.getPossibleAnswers()))
+        c.removeAnswer(c.getAnswer())
 
         for cx in suduko:
-            position = cx.getPosition()
+            position2 = cx.getPosition()
 
-            if x == position[0] and cx.checkSolved() == True:
+            if x == position2[0] and cx.checkSolved() == True:
                 c.removeAnswer(cx.getAnswer())
                 c.setAnswer(random.choice(c.getPossibleAnswers()))
-            if y == position[1] and cx.checkSolved() == True:
+            if y == position2[1] and cx.checkSolved() == True:
                 c.removeAnswer(cx.getAnswer())
                 c.setAnswer(random.choice(c.getPossibleAnswers()))
-            if boxNum == position[2] and cx.checkSolved() == True:
+            if boxNum == position2[2] and cx.checkSolved() == True:
                 c.removeAnswer(cx.getAnswer())
                 c.setAnswer(random.choice(c.getPossibleAnswers()))
 
         c.setSolved(True)
 
         printSudoko(suduko)
+        print(c.getPossibleAnswers)
     
 
 #printSudoko(emptySudoko())
